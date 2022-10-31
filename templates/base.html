@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %} {% endblock title %}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+</head>
+<body>
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <a class="navbar-brand" href="{% url 'home' %}">
+        <img src="https://img.icons8.com/color/48/000000/hamburger.png" class="logo"/>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mynav" aria-controls="mynav">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="mynav">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'home' %}">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'about' %}">About</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'contact' %}">Contact</a>
+            </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+                <h5 class="text-light pt-4">Welcome {{ user.username }}</h5>
+            </li>
+            {% endif %}
+
+            <li class="nav-item mt-2">
+                <a class="nav-link" href="{% url 'order' %}"><img
+                        src="https://img.icons8.com/material/24/000000/shopping-cart--v1.png"/><span
+                        id="cart">0</span></a>
+            </li>
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+                <a href="{% url 'logout_attempt' %}" class="nav-link"><img class="bg-light ml-2 rounded-circle"
+                                                  src="https://img.icons8.com/ios-filled/40/000000/user.png"/><br>Logout</a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+                <a href="{% url 'login_attempt' %}" class="nav-link"><img class="bg-light ml-2 rounded-circle"
+                                                  src="https://img.icons8.com/ios-filled/40/000000/user.png"/><br>Login</a>
+            </li>
+            <li>
+                <a href="{% url 'register_attempt' %}" class="nav-link"><img
+                        src="https://img.icons8.com/external-bearicons-glyph-bearicons/40/000000/external-sign-up-call-to-action-bearicons-glyph-bearicons-1.png"/><br>Register
+                    </a>
+            </li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>
+<div class="container-fluid my-2">
+    <div class="row">
+        <div class="col-sm-2">
+            <div class="list-group">
+                <a href="#" class="list-group-item list-group-item-action active">
+                    Food Items
+                </a>
+                <a href="{% url 'chinese' %}" class="list-group-item list-group-item-action">Chinese</a>
+                <a href="#" class="list-group-item list-group-item-action">Indian</a>
+            </div>
+        </div>
+        <div class="col-sm-10">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="{% static 'js/main.js' %}"></script>
+<script src="{% static 'js/jquery.js' %}"></script>
+<script src="{% static 'js/cart.js' %}"></script>
+</body>
+</html>

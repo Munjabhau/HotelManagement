@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{%load static %}
+{% block title %} Order {% endblock title %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-8 text-center">
+            <h2>Order</h2>
+            <div class="row">
+                <div class="col-md-3" id="name">
+                    <h3>Name</h3>
+                </div>
+                <div class="col-md-3" id="size">
+                    <h3>Size</h3>
+                </div>
+                <div class="col-md-3" id="price">
+                    <h3>Price</h3>
+                </div>
+                <div class="col-md-1" id="rm">
+
+                </div>
+            </div>
+            <h2 id="total">Total:</h2>
+        </div>
+        <div class="col-md-4">
+            <h2 class="mb-4">Message</h2>
+            <textarea name="message" id="message" col="30" rows="10"></textarea>
+
+            {% if user.is_authenticated %}
+            <div class="ml-auto m-4">
+                 <button type="submit" class="btn-success" onclick="order()">Submit</button>
+            </div>
+            {% else %}
+            <div class="ml-auto m-4">
+                <a href="{% url 'login_attempt'%}">Log In</a>
+            </div>
+            {% endif%}
+        </div>
+    </div>
+</div>
+{% endblock %}
